@@ -1,2 +1,1 @@
-# React + Vite
 Setup a simple demo website to test ci/ci pipeline in different repo with e2e test
