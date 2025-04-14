@@ -21,3 +21,5 @@ jobs:
               },
             });
             console.log(`Repository dispatch event sent: ${response.status}`);
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
