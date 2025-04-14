@@ -1,0 +1,25 @@
+name: Trigger E2E smoke test
+on:
+  push:
+    branches:
+      - main
+jobs:
+  trigger-e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send reposistory dispatch event to e2e test repo
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const response = await github.rest.repos.createDispatchEvent({
+              owner: 'longnv1995',
+              repo: 'cicd-flow',
+              event_type: 'run-e2e-test',
+              client_payload: {
+                branch: 'main', # Branch to test in the web repo
+                repo: 'demo-site', # The web repo being tested
+              },
+            });
+            console.log(`Repository dispatch event sent: ${response.status}`);
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
