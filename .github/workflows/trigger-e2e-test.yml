@@ -16,8 +16,8 @@ jobs:
               repo: 'cicd-flow',
               event_type: 'run-e2e-test',
               client_payload: {
-                branch: 'main', # Branch to test in the web repo
-                repo: 'demo-site', # The web repo being tested
+                branch: 'main',
+                repo: 'demo-site',
               },
             });
             console.log(`Repository dispatch event sent: ${response.status}`);
