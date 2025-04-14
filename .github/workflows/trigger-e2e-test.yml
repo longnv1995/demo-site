@@ -21,5 +21,3 @@ jobs:
               },
             });
             console.log(`Repository dispatch event sent: ${response.status}`);
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
