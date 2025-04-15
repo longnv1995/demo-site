@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  Send event to run e2e test:
+  send-event-to-run-e2e-test:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout source code
