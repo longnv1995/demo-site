@@ -1,7 +1,0 @@
-jobs:
-  download-artifact:
-    steps:
-      uses: actions/download-artifact@v4
-      with:
-        name: production-files
-        path: ./dist

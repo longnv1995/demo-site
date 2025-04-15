@@ -1,0 +1,8 @@
+jobs:
+  download-artifact:
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Artifact files
+          path: ./dist

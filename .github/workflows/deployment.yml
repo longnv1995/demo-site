@@ -28,7 +28,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Download artifact
-        uses: './.github/actions/download-artifact.yml'
+        uses: ./.github/actions/download-artifact
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
