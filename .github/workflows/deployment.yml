@@ -27,10 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
       - name: Download artifact
-        uses: ./.github/actions/download-artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-files
+          path: ./dist
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
