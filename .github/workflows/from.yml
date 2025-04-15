@@ -18,9 +18,8 @@ jobs:
         ORG: longnv1995
         REPO: cicd-flow
       run: |
-        curl -X POST "https://api.github.com/repos/${ORG}/${REPO}/dispatches"
-          -d "{\"event_type\": \"${EVENT_TYPE}\"}" \
+        curl -d "{\"event_type\": \"${EVENT_TYPE}\"}" \
           -H "Content-Type: application/json" \
           -H "Authorization: token ${GITHUB_TOKEN}" \
           -H "Accept: application/vnd.github.everest-preview+json" \
-        echo ${{ toJSON(github.event) }}
+          "https://api.github.com/repos/${ORG}/${REPO}/dispatches"
