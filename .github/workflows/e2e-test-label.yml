@@ -10,7 +10,8 @@ on:
       - labeled
 jobs:
   run-e2e-test-by-label:
-    if: contains(github.event.pull_request.labels.*.name, 'ui-test')
+    if: >
+      ${{ contains(['ui-test', 'api-test', 'smoke-test', 'regression-test', 'visual-test'], github.event.pull_request.labels.*.name) }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -21,7 +22,7 @@ jobs:
       - name: Send event to trigger e2e test
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
-          EVENT_TYPE: ui-test
+          EVENT_TYPE: github.event.pull_request.labels.*.name
           ORG: longnv1995
           REPO: cicd-flow
         run: |
