@@ -1,10 +1,10 @@
-name: Build Artifacts
+name: Run smoke tests after PR merged
 on:
   push:
     branches:
       - main
 jobs:
-  event-to-trigger-test:
+  run-smoke-test:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout source code
@@ -12,8 +12,6 @@ jobs:
       with:
         ref: main
     - run: echo '${{ toJSON(github.event) }}'
-    - run: echo '${{ toJSON(github.event_name) }}'
-    - run: echo '${{ toJSON(github.event.action) }}'
     - name: Send event to trigger e2e test
       env:
         GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
@@ -21,9 +19,8 @@ jobs:
         ORG: longnv1995
         REPO: cicd-flow
       run: |
-        curl -v "https://api.github.com/repos/${ORG}/${REPO}/dispatches"
-          -d "{\"event_type\": \"${EVENT_TYPE}\"}" \
-          -X 'POST' \
+        curl -d "{\"event_type\": \"${EVENT_TYPE}\"}" \
           -H "Content-Type: application/json" \
           -H "Authorization: token ${GITHUB_TOKEN}" \
-          -H "Accept: application/vnd.github.everest-preview+json"
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          "https://api.github.com/repos/${ORG}/${REPO}/dispatches"
