@@ -27,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
       - name: Download artifact
         uses: ./.github/actions/download-artifact
       - name: Deploy to GitHub Pages
