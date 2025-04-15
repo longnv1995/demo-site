@@ -1,0 +1,11 @@
+name: Run e2e tests by label
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  run-e2e-test-by-label:
+    if: contains(github.event.pull_request.labels.*.name, 'ui-test')
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Trigger"

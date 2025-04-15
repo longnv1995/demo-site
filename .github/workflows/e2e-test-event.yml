@@ -7,20 +7,20 @@ jobs:
   send-event-to-run-e2e-test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout source code
-      uses: actions/checkout@v4
-      with:
-        ref: main
-    - run: echo '${{ toJSON(github.event) }}'
-    - name: Send event to trigger e2e test
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
-        EVENT_TYPE: run-e2e-test
-        ORG: longnv1995
-        REPO: cicd-flow
-      run: |
-        curl -d "{\"event_type\": \"${EVENT_TYPE}\"}" \
-          -H "Content-Type: application/json" \
-          -H "Authorization: token ${GITHUB_TOKEN}" \
-          -H "Accept: application/vnd.github.everest-preview+json" \
-          "https://api.github.com/repos/${ORG}/${REPO}/dispatches"
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: echo '${{ toJSON(github.event) }}'
+      - name: Send event to trigger e2e test
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
+          EVENT_TYPE: run-e2e-test
+          ORG: longnv1995
+          REPO: cicd-flow
+        run: |
+          curl -d "{\"event_type\": \"${EVENT_TYPE}\"}" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            "https://api.github.com/repos/${ORG}/${REPO}/dispatches"
