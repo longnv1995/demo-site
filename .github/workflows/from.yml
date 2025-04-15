@@ -11,7 +11,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: main
-    - run: echo '${{ toJSON(githu.event) }}'
+    - run: echo '${{ toJSON(github.event) }}'
     - name: Send event to trigger e2e test
       env:
         GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
