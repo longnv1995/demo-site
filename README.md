@@ -1,1 +1,1 @@
-Setup a simple demo website to test ci/ci pipeline, updated
+Setup a simple demo website to test ci/ci pipeline
