@@ -10,9 +10,14 @@ on:
       - labeled
 jobs:
   run-e2e-test-by-label:
+    runs-on: ubuntu-latest
     if: >
       ${{ contains(['ui-test', 'api-test', 'smoke-test', 'regression-test', 'visual-test'], github.event.pull_request.labels.*.name) }}
-    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
+      EVENT_TYPE: github.event.pull_request.labels.*.name
+      ORG: longnv1995
+      REPO: cicd-flow
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -20,11 +25,6 @@ jobs:
           ref: main
       - run: echo '${{ toJSON(github.event) }}'
       - name: Send event to trigger e2e test
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
-          EVENT_TYPE: github.event.pull_request.labels.*.name
-          ORG: longnv1995
-          REPO: cicd-flow
         run: |
           curl -d "{\"event_type\": \"${EVENT_TYPE}\"}" \
             -H "Content-Type: application/json" \

@@ -6,6 +6,11 @@ on:
 jobs:
   send-event-to-run-e2e-test:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
+      EVENT_TYPE: run-e2e-test
+      ORG: longnv1995
+      REPO: cicd-flow
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -13,11 +18,6 @@ jobs:
           ref: main
       - run: echo '${{ toJSON(github.event) }}'
       - name: Send event to trigger e2e test
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_FOR_E2E_REPO }}
-          EVENT_TYPE: run-e2e-test
-          ORG: longnv1995
-          REPO: cicd-flow
         run: |
           curl -d "{\"event_type\": \"${EVENT_TYPE}\"}" \
             -H "Content-Type: application/json" \
